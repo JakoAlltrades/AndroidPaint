@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public void paintClicked(View view) {
         //use chosen color
 
+        
         Log.i("broke", "ASfuck");
         if (view != currPaint) {
             //update color
