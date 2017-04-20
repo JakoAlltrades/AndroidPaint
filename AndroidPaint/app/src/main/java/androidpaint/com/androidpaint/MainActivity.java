@@ -25,17 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void paintClicked(View view) {
         //use chosen color
-
-        
-        Log.i("broke", "ASfuck");
-        if (view != currPaint) {
+        //Log.i("broke", "ASfuck");
+        drawView = (DrawingView) findViewById(R.id.drawing);
+        if (view.getId() != currPaint.getId()) {
             //update color
             ImageButton imgView = (ImageButton) view;
             String color = view.getTag().toString();
-            drawView.setColor(color);
+            if(drawView != null) {
+                drawView.setColor(color);
+            }
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-
         }
         currPaint = (ImageButton) view;
 

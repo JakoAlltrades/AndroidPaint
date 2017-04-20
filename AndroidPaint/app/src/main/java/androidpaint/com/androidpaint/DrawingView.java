@@ -28,9 +28,8 @@ public class DrawingView extends View {
     private Bitmap canvasBitmap;
 
     public DrawingView(Context context, AttributeSet attributeSet) {
-        super(context);
+        super(context, attributeSet);
         setupDrawing();
-
     }
 
     private void setupDrawing() {
@@ -43,6 +42,7 @@ public class DrawingView extends View {
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+
 
     }
 
