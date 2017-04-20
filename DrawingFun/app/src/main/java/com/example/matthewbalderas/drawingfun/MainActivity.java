@@ -1,4 +1,4 @@
-package androidpaint.com.androidpaint;
+package com.example.matthewbalderas.drawingfun;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,26 +17,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        drawView = (DrawingView) findViewById(R.id.drawing);
-        LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
-        currPaint = (ImageButton) paintLayout.getChildAt(0);
+        drawView = (DrawingView)findViewById(R.id.drawing);
+        LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
+        currPaint = (ImageButton)paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+
     }
 
-    public void paintClicked(View view) {
+    public void paintClicked(View view){
         //use chosen color
 
-        Log.i("broke", "ASfuck");
-        if (view != currPaint) {
-            //update color
-            ImageButton imgView = (ImageButton) view;
+        Log.i("broke","ASfuck");
+        if(view!=currPaint){
+        //update color
+            ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
             drawView.setColor(color);
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
 
         }
-        currPaint = (ImageButton) view;
+        currPaint=(ImageButton)view;
 
     }
+
 }
