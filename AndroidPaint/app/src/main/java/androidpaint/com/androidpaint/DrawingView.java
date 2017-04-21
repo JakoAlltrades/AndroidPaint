@@ -133,6 +133,7 @@ public class DrawingView extends View {
     public void clearCanvas()
     {
         drawCanvas.drawColor(Color.WHITE);
+        invalidate();
     }
 
 }
