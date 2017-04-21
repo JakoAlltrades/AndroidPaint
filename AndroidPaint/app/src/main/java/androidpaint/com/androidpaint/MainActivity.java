@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         drawView.changeBrushSize(view);
 
     }
+    public void drawOvals(View view)
+    {
+        drawView.drawOval(view);
+    }
+
 
     public void changeBackgroundClick(View view)
     {
