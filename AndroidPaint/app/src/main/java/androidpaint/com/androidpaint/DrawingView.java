@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -24,8 +25,11 @@ public class DrawingView extends View {
     private int paintColor = 0xFF660000;
     //canvas
     private Canvas drawCanvas;
+    private Canvas backgroundCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+    private Bitmap mergedCanvasBitmap;
+    private int backgroundColor = 0x00000000;
 
     public DrawingView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -49,13 +53,16 @@ public class DrawingView extends View {
         //view given size
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        mergedCanvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         drawCanvas = new Canvas(canvasBitmap);
+        backgroundCanvas = new Canvas(mergedCanvasBitmap);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         //draw view
-        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+        mergeLayers();
+        canvas.drawBitmap(mergedCanvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
     }
 
@@ -78,10 +85,16 @@ public class DrawingView extends View {
                 break;
             default:
                 return false;
-
         }
         invalidate();
         return true;
+    }
+
+    public void ChangeBackground(String newBackground)
+    {
+        backgroundColor = Color.parseColor(newBackground);
+        Log.i("TESt", "TEEEESSSSSTTTT");
+        invalidate();
     }
 
     public void setColor(String newColor){
@@ -89,6 +102,11 @@ public class DrawingView extends View {
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
+    }
+
+    private void mergeLayers(){
+        backgroundCanvas.drawColor(backgroundColor);
+        backgroundCanvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
     }
 
     public void clearCanvas()
