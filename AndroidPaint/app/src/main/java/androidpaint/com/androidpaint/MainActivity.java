@@ -1,10 +1,12 @@
 package androidpaint.com.androidpaint;
 
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -12,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawingView drawView;
     private ImageButton currPaint;
+    private boolean backgroundToggleOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
             ImageButton imgView = (ImageButton) view;
             String color = view.getTag().toString();
             if(drawView != null) {
-                drawView.setColor(color);
+                if (backgroundToggleOn) {
+                    drawView.ChangeBackground(color);
+                }
+                else {
+                    drawView.setColor(color);
+                }
             }
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
@@ -55,5 +63,20 @@ public class MainActivity extends AppCompatActivity {
         drawView.drawOval(view);
     }
 
+
+    public void changeBackgroundClick(View view)
+    {
+        ImageButton changeButton = (ImageButton)findViewById(R.id.ChangeBackground);
+        if (backgroundToggleOn)
+        {
+            changeButton.setImageResource(R.drawable.penicon);
+        }
+        else
+        {
+            changeButton.setImageResource(R.drawable.paintrollericon);
+        }
+
+        backgroundToggleOn = !backgroundToggleOn;
+    }
 
 }
