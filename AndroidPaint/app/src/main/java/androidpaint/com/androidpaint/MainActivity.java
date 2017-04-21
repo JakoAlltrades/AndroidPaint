@@ -45,4 +45,10 @@ public class MainActivity extends AppCompatActivity {
     {
         drawView.clearCanvas();
     }
+    public void onBrushChange(View view)
+    {
+        drawView.changeBrushSize(view);
+
+    }
+
 }
