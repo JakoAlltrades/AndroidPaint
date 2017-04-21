@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void drawOvals(View view)
     {
-        drawView.drawOval(view);
+       // drawView.drawOval(view);
     }
 
 
