@@ -132,7 +132,14 @@ public class DrawingView extends View {
 
     public void clearCanvas()
     {
-        drawCanvas.drawColor(Color.WHITE);
+        int width = drawCanvas.getWidth();
+        int height = drawCanvas.getHeight();
+        canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mergedCanvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        drawCanvas = new Canvas(canvasBitmap);
+        backgroundCanvas = new Canvas(mergedCanvasBitmap);
+//        drawCanvas.drawColor(backgroundColor);
+//        drawCanvas = new Canvas(canvasBitmap);
         invalidate();
     }
 
