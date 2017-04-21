@@ -42,8 +42,6 @@ public class DrawingView extends View {
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
-
-
     }
 
     @Override
@@ -91,5 +89,10 @@ public class DrawingView extends View {
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
+    }
+
+    public void clearCanvas()
+    {
+        drawCanvas.drawColor(Color.WHITE);
     }
 }

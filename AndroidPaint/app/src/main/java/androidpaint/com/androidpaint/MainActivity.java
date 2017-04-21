@@ -1,5 +1,6 @@
 package androidpaint.com.androidpaint;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
         }
         currPaint = (ImageButton) view;
+    }
 
+    public void onClearClick(View view)
+    {
+        drawView.clearCanvas();
     }
 }
