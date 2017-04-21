@@ -1,6 +1,7 @@
 package androidpaint.com.androidpaint;
 
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,18 +53,25 @@ public class MainActivity extends AppCompatActivity {
     {
         drawView.clearCanvas();
     }
+    public void onBrushChange(View view)
+    {
+        drawView.changeBrushSize(view);
+
+    }
 
     public void changeBackgroundClick(View view)
     {
-        backgroundToggleOn = !backgroundToggleOn;
-        ImageButton changeButton = (ImageButton) findViewById(R.id.ChangeBackground);
-        if (backgroundToggleOn) {
+        ImageButton changeButton = (ImageButton)findViewById(R.id.ChangeBackground);
+        if (backgroundToggleOn)
+        {
             changeButton.setImageResource(R.drawable.penicon);
         }
-        else {
+        else
+        {
             changeButton.setImageResource(R.drawable.paintrollericon);
         }
 
-
+        backgroundToggleOn = !backgroundToggleOn;
     }
+
 }

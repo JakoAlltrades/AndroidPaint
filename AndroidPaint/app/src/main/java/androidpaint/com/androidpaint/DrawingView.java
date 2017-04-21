@@ -41,11 +41,32 @@ public class DrawingView extends View {
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
         drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(20);
+        drawPaint.setStrokeWidth(10);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+    }
+    public void changeBrushSize(View view)
+    {
+       if(drawPaint.getStrokeWidth() == 10)
+       {
+           drawPaint.setStrokeWidth(20);
+       }else if(drawPaint.getStrokeWidth() == 20)
+       {
+           drawPaint.setStrokeWidth(30);
+       }else if(drawPaint.getStrokeWidth() == 30)
+       {
+           drawPaint.setStrokeWidth(50);
+       }else if(drawPaint.getStrokeWidth() == 50)
+       {
+           drawPaint.setStrokeWidth(60);
+       }
+       else if(drawPaint.getStrokeWidth() == 60)
+       {
+           drawPaint.setStrokeWidth(10);
+       }
+
     }
 
     @Override
@@ -113,4 +134,5 @@ public class DrawingView extends View {
     {
         drawCanvas.drawColor(Color.WHITE);
     }
+
 }
