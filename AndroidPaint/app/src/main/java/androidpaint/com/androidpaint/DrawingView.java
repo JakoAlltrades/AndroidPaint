@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +28,8 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+    private boolean isOval;
+    private RectF oval;
 
     public DrawingView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -43,25 +47,19 @@ public class DrawingView extends View {
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
     }
-    public void changeBrushSize(View view)
-    {
-       if(drawPaint.getStrokeWidth() == 10)
-       {
-           drawPaint.setStrokeWidth(20);
-       }else if(drawPaint.getStrokeWidth() == 20)
-       {
-           drawPaint.setStrokeWidth(30);
-       }else if(drawPaint.getStrokeWidth() == 30)
-       {
-           drawPaint.setStrokeWidth(50);
-       }else if(drawPaint.getStrokeWidth() == 50)
-       {
-           drawPaint.setStrokeWidth(60);
-       }
-       else if(drawPaint.getStrokeWidth() == 60)
-       {
-           drawPaint.setStrokeWidth(10);
-       }
+
+    public void changeBrushSize(View view) {
+        if (drawPaint.getStrokeWidth() == 10) {
+            drawPaint.setStrokeWidth(20);
+        } else if (drawPaint.getStrokeWidth() == 20) {
+            drawPaint.setStrokeWidth(30);
+        } else if (drawPaint.getStrokeWidth() == 30) {
+            drawPaint.setStrokeWidth(50);
+        } else if (drawPaint.getStrokeWidth() == 50) {
+            drawPaint.setStrokeWidth(60);
+        } else if (drawPaint.getStrokeWidth() == 60) {
+            drawPaint.setStrokeWidth(10);
+        }
 
     }
 
@@ -85,35 +83,65 @@ public class DrawingView extends View {
         //detect user touch
         float touchX = event.getX();
         float touchY = event.getY();
+        if (!isOval) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    drawPath.moveTo(touchX, touchY);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    drawPath.lineTo(touchX, touchY);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    drawCanvas.drawPath(drawPath, drawPaint);
+                    drawPath.reset();
+                    break;
+                default:
+                    return false;
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                drawPath.moveTo(touchX, touchY);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                drawPath.lineTo(touchX, touchY);
-                break;
-            case MotionEvent.ACTION_UP:
-                drawCanvas.drawPath(drawPath, drawPaint);
-                drawPath.reset();
-                break;
-            default:
-                return false;
-
+            }
+            invalidate();
+            return true;
         }
-        invalidate();
-        return true;
+        else
+        {
+            oval = new RectF(touchX,touchY,touchX+10,touchY-10);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    drawPath.moveTo(touchX, touchY);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    drawCanvas.drawOval(oval,drawPaint);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    drawCanvas.drawPath(drawPath, drawPaint);
+                    drawPath.reset();
+                    break;
+                default:
+                    return false;
+
+            }
+            invalidate();
+            return true;
+        }
+
     }
 
-    public void setColor(String newColor){
+    public void setColor(String newColor) {
         //set color
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
     }
 
-    public void clearCanvas()
-    {
+    public void drawOval(View view) {
+        if (isOval) {
+            isOval = false;
+        } else {
+            isOval = true;
+        }
+    }
+
+    public void clearCanvas() {
         drawCanvas.drawColor(Color.WHITE);
     }
 
