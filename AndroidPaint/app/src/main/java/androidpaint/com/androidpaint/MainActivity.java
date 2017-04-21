@@ -59,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void drawOvals(View view)
     {
-//        drawView.drawOval(view);
+        drawView.makeOval(view);
+    }
+    public void drawLine(View view)
+    {
+        drawView.makeLine(view);
     }
 
     public void changeBackgroundClick(View view)
