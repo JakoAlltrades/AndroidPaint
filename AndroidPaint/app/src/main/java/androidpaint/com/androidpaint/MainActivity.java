@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         ImageButton changeButton = (ImageButton)findViewById(R.id.ChangeBackground);
         if (backgroundToggleOn)
         {
-            changeButton.setImageResource(R.drawable.penicon);
+            changeButton.setImageResource(R.drawable.paintrollericon);
         }
         else
         {
-            changeButton.setImageResource(R.drawable.paintrollericon);
+            changeButton.setImageResource(R.drawable.penicon);
         }
 
         backgroundToggleOn = !backgroundToggleOn;
