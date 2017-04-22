@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Random;
+
 /**
  * Created by Matthew Balderas on 4/19/2017.
  */
@@ -175,6 +179,26 @@ public class DrawingView extends View {
         invalidate();
     }
 
+    public void saveCanvas(File dir)
+    {
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Image-" + n + ".jpg";
+        File file = new File(dir, fname);
+        Log.i("Saving", "" + file);
+        if (file.exists())
+            file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file, true);
+            canvasBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void makeLine(View view) {
         if (isLine) {
             isLine = false;
@@ -191,4 +215,9 @@ public class DrawingView extends View {
         }
     }
 
+
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
 }

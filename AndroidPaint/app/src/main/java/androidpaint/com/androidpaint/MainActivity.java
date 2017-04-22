@@ -10,11 +10,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawingView drawView;
     private ImageButton currPaint;
     private boolean backgroundToggleOn = false;
+    private int eraseButtonID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
         currPaint = (ImageButton) paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+        eraseButtonID = R.id.erase_btn;
     }
 
     public void paintClicked(View view) {
@@ -43,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
                     drawView.setColor(color);
                 }
             }
-            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+            if(view.getId() != eraseButtonID) {
+                imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+            }
         }
         currPaint = (ImageButton) view;
     }
@@ -64,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
     public void drawLine(View view)
     {
         drawView.makeLine(view);
+    }
+
+    public void saveClicked(View view)
+    {
+        File file = this.getFilesDir();
+        drawView.saveCanvas(file);
     }
 
     public void changeBackgroundClick(View view)
