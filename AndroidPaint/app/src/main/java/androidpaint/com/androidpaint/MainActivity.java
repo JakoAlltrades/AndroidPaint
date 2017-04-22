@@ -49,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
             }
             if(view.getId() != eraseButtonID) {
                 imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+            }
+            if(currPaint.getId() != eraseButtonID) {
                 currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
             }
+
         }
         currPaint = (ImageButton) view;
     }
