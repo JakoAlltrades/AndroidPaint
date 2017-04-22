@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,7 +16,10 @@ import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URI;
 import java.util.Random;
+
+import static android.media.MediaScannerConnection.scanFile;
 
 /**
  * Created by Matthew Balderas on 4/19/2017.
@@ -22,6 +27,7 @@ import java.util.Random;
 
 public class DrawingView extends View {
 
+    private MediaScannerConnection mediaScannerConnection;
     //drawing path
     private Path drawPath;
     //drawing and canvas paint
@@ -184,19 +190,39 @@ public class DrawingView extends View {
         Random generator = new Random();
         int n = 10000;
         n = generator.nextInt(n);
-        String fname = "Image-" + n + ".jpg";
+        String fname = "image" + n + ".PNG";
         File file = new File(dir, fname);
         Log.i("Saving", "" + file);
         if (file.exists())
             file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file, true);
-            canvasBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            canvasBitmap.compress(Bitmap.CompressFormat.PNG, 85, out);
             out.flush();
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        checkIfSaved(file);
+    }
+
+
+
+    private void checkIfSaved(File file)
+    {
+       mediaScannerConnection.scanFile(getContext(), new String[] {file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+
+            @Override
+            public void onScanCompleted(String path, Uri uri) {
+                Log.e("ExternalStorage","Scanned" + path + ":");
+                if(uri == null)
+                {
+                    uri = Uri.fromFile(new File(path));
+                }
+                Log.e("ExternalStorage", "-> uri-" + uri);
+
+            }
+        });
     }
 
     public void makeLine(View view) {

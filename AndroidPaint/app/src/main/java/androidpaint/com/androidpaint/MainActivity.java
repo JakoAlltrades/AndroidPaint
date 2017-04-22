@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveClicked(View view)
     {
-        File file = this.getFilesDir();
+        File file = this.getFilesDir().getAbsoluteFile();
         drawView.saveCanvas(file);
     }
 
