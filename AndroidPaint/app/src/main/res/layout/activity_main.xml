@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.15"
                 android:onClick="drawLine"
-                app:srcCompat="@drawable/line" />
+                />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -69,7 +69,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:contentDescription="@string/erase"
-                android:src="@drawable/eraser" />
+                android:src="@drawable/eraser"
+                android:onClick="paintClicked"
+                android:tag="#FFFFFFFF" />
 
             <ImageButton
                 android:id="@+id/save_btn"
