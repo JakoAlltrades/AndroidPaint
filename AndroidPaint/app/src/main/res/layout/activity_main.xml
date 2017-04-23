@@ -37,7 +37,7 @@
                 android:layout_height="match_parent"
                 android:onClick="drawLine"
                 android:src = "@drawable/linesegment"
-                />
+                android:contentDescription="line button" />
 
             <ImageButton
                 android:id="@+id/sparyButton"
@@ -45,7 +45,8 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.15"
                 android:onClick="drawOvals"
-                app:srcCompat="@drawable/spraycan" />
+                app:srcCompat="@drawable/spraycan"
+                android:contentDescription="spray button"/>
 
             <ImageButton
                 android:id="@+id/new_btn"
@@ -87,7 +88,8 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:onClick="changeBackgroundClick"
-                android:src="@drawable/paintrollericon" />
+                android:src="@drawable/paintrollericon"
+                android:contentDescription="change canvas button"/>
         </LinearLayout>
 
         <androidpaint.com.androidpaint.DrawingView
