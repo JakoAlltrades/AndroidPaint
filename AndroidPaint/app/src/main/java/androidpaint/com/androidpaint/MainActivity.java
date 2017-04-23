@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void paintClicked(View view) {
         //use chosen color
-        //Log.i("broke", "ASfuck");
         drawView = (DrawingView) findViewById(R.id.drawing);
         if (view.getId() != currPaint.getId()) {
             //update color
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveClicked(View view)
     {
-        File file = this.getFilesDir().getAbsoluteFile();
+        File file = this.getExternalFilesDir(null);
         drawView.saveCanvas(file);
     }
 

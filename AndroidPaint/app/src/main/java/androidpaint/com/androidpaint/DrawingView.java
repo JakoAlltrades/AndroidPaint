@@ -26,8 +26,6 @@ import static android.media.MediaScannerConnection.scanFile;
  */
 
 public class DrawingView extends View {
-
-    private MediaScannerConnection mediaScannerConnection;
     //drawing path
     private Path drawPath;
     //drawing and canvas paint
@@ -197,32 +195,12 @@ public class DrawingView extends View {
             file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file, true);
-            canvasBitmap.compress(Bitmap.CompressFormat.PNG, 85, out);
+            canvasBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        checkIfSaved(file);
-    }
-
-
-
-    private void checkIfSaved(File file)
-    {
-       mediaScannerConnection.scanFile(getContext(), new String[] {file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
-
-            @Override
-            public void onScanCompleted(String path, Uri uri) {
-                Log.e("ExternalStorage","Scanned" + path + ":");
-                if(uri == null)
-                {
-                    uri = Uri.fromFile(new File(path));
-                }
-                Log.e("ExternalStorage", "-> uri-" + uri);
-
-            }
-        });
     }
 
     public void makeLine(View view) {
